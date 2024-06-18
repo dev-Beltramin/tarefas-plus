@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 260px;
+}
+
+.content {
+  margin-bottom: 164px;
+  color: white;
+}
+
+.content p {
+  font-size: 38px;
+  font-weight: bold;
+  text-align: center;
+  width: 625px;
+  margin: 69px 0 58px 0;
+  line-height: 58px;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 24px;
+}
+
+.button button {
+  width: 252px;
+  height: 62px;
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: bold;
+}

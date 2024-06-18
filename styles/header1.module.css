@@ -1,0 +1,42 @@
+.container{
+    display: flex;
+    align-items: center;
+    color: white;
+    height: 105px;
+    width: 100%;
+
+}
+
+.content{
+    display: flex;
+    justify-content: space-between;
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+   
+   
+}
+
+.content p{
+    font-size: 38px;
+    font-weight: bold;
+
+}
+
+.content span{
+    color: #EA3140;
+}
+
+.content button{
+    background-color: transparent;
+    color: white;
+    border: 1px solid #fff;
+    border-radius: 24px;
+    padding: 13px 42px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+
+
+}
+
