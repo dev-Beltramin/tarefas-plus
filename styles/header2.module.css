@@ -1,0 +1,53 @@
+.container {
+  display: flex;
+  align-items: center;
+  color: white;
+  height: 105px;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.header p {
+  font-size: 38px;
+  font-weight: bold;
+}
+
+.header span {
+  color: #ea3140;
+}
+
+.header button {
+  background-color: transparent;
+  color: white;
+  border: 1px solid #fff;
+  border-radius: 24px;
+  padding: 13px 42px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.content {
+  display: flex;
+  column-gap: 24px;
+  align-items: center;
+}
+
+.content button {
+  background-color: white;
+  padding: 7px 16px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  color: black;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 500;
+}

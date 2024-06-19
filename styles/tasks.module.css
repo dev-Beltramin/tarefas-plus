@@ -1,0 +1,89 @@
+.container {
+  max-width: 1024px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.content h2 {
+  font-size: 38px;
+  font-weight: bold;
+  line-height: 48px;
+  color: white;
+  margin: 69px 0 16px 0;
+}
+
+.content textarea {
+  max-width: 1024px;
+  width: 100%;
+  height: 208px;
+  padding-left: 14px;
+  padding-top: 20px;
+  font-size: 18px;
+}
+
+.input {
+  display: flex;
+  color: white;
+  column-gap: 12px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.input input {
+  width: 23px;
+}
+
+.input p {
+  font-weight: 600px;
+}
+
+.content button {
+  background-color: #3183ff;
+  width: 100%;
+  padding: 14px 0;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.content_tasks {
+  background-color: white;
+  width: 100%;
+  height: 500px;
+}
+
+.tasks {
+  position: relative;
+  max-width: 1024px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.tasks h2 {
+  text-align: center;
+  padding: 61px 0 32px 0;
+  font-size: 38px;
+  font-weight: bold;
+}
+
+.tasks p {
+  border: 1px solid #909090;
+  padding: 24px 22px;
+  margin: 16px 0;
+  border-radius: 8px;
+}
+
+.delete {
+  position: absolute;
+  right: 0px;
+  padding-top: 12px;
+  padding-right: 6px;
+  color: red;
+}
+
+.delete i {
+  font-size: 24px;
+  cursor: pointer;
+}

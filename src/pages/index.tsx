@@ -1,5 +1,5 @@
 import Image from "next/image";
-import HeaderOne from "./components/header";
+import HeaderOne from "./components/header/header1";
 import logo from "./components/images/logo-home.svg";
 
 import styles from "../../styles/Home.module.css";
