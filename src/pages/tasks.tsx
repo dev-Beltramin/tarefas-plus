@@ -79,7 +79,8 @@ const Tasks = ({ user }: userProps) => {
             id: doc.id,
             created: doc.data().created,
             tarefa: doc.data().tarefa,
-            Public: doc.data().Public
+            Public: doc.data().Public,
+           
           });
         });
 
