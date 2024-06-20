@@ -1,3 +1,9 @@
+.body {
+  background-color: #0f0f0f;
+  height: 100%;
+  width: 100%;
+}
+
 .container {
   max-width: 1024px;
   width: 100%;
@@ -55,7 +61,6 @@
 }
 
 .tasks {
-  position: relative;
   max-width: 1024px;
   width: 100%;
   margin: 0 auto;
@@ -68,22 +73,37 @@
   font-weight: bold;
 }
 
-.tasks p {
+.text {
   border: 1px solid #909090;
   padding: 24px 22px;
   margin: 16px 0;
   border-radius: 8px;
 }
 
-.delete {
-  position: absolute;
-  right: 0px;
-  padding-top: 12px;
-  padding-right: 6px;
-  color: red;
+.text span {
+  background-color: #3183ff;
+  width: 8%;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  padding: 6px 0;
+  margin-bottom: 6px;
 }
 
-.delete i {
-  font-size: 24px;
+.text span i {
+  padding-left: 6px;
+  color: white;
+}
+.text p {
+  width: 908px;
+}
+
+.text i {
+  color: red;
+  display: flex;
+  justify-content: flex-end;
   cursor: pointer;
 }

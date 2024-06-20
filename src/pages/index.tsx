@@ -11,7 +11,7 @@ export default function Home() {
 
       <section className={styles.container}>
         <div className={styles.content}>
-          <Image src={logo} width={579} height={353} />
+          <Image src={logo} width={579}  />
           <p>Sistema feito para você organizar seus estudos e terefas</p>
 
           <div className={styles.button}>

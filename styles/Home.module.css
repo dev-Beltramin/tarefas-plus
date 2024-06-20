@@ -2,7 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 260px;
+  padding-top: 260px;
+  background-color: #0f0f0f;
+
 }
 
 .content {

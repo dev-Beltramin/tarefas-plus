@@ -1,0 +1,85 @@
+.body {
+  background-color: white;
+  height: 100vh;
+  width: 100%;
+}
+
+.container {
+  max-width: 1024px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content > textarea {
+  margin: 79px 0 118px 0;
+  height: 192px;
+  width: 100%;
+  padding: 24px;
+  border: 1px solid #909090;
+  border-radius: 8px;
+}
+.content_inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.content_inputs textarea {
+  width: 1024px;
+  height: 150px;
+  padding: 24px;
+  border: 1px solid #909090;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+.content_inputs label {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 14px;
+}
+
+.content_inputs button {
+  background-color: #3183ff;
+  padding: 14px auto;
+  height: 50px;
+  border-radius: 8px;
+  margin-bottom: 58px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.coments {
+  max-width: 1024px;
+  width: 100%;
+  margin: 0 auto;
+ 
+}
+
+.coments >p{
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 14px;
+}
+
+.coments_users {
+    border: 1px solid #909090;
+    height: 80px;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+}
+
+.coments_users p{
+    background-color: #CCCCCC;
+    width: 10%;
+    padding: 2px 8px;
+    margin-bottom: 8px;
+}
