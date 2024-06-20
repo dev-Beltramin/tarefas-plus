@@ -4,17 +4,20 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   onSnapshot,
   orderBy,
   query,
   where
 } from "firebase/firestore";
-import { MdDelete } from "react-icons/md";
 
+import { MdDelete } from "react-icons/md";
 import styles from "../../styles/tasks.module.css";
 import Header1 from "./components/header/header1";
 import { FiShare2 } from "react-icons/fi";
 import { db } from "./services/db";
+import Link from "next/link";
 
 interface userProps {
   user: {
@@ -87,6 +90,17 @@ const Tasks = ({ user }: userProps) => {
     listTasks();
   }, [user?.email]);
 
+  const handleShare = async (id: string) => {
+    await navigator.clipboard.writeText(
+      `${process.env.NEXT_PUBLIC_URL}/profile/${id}`
+    );
+  };
+
+  const handleDelete = async (id: string) => {
+    const deleteRef = doc(db, "tarefas", id);
+    await deleteDoc(deleteRef);
+  };
+
   return (
     <div className={styles.body}>
       <Header1 />
@@ -128,14 +142,20 @@ const Tasks = ({ user }: userProps) => {
                     <span>
                       {item.Public}
                       publico
-                      <i>
+                      <i onClick={() => handleShare(item.id)}>
                         <FiShare2 />
                       </i>
                     </span>
                   )}
                 </div>
-                <p>{item.tarefa}</p>
-                <i>
+                {item.Public ? (
+                  <Link href={`/profile/${item.id}`}>
+                    <p>{item.tarefa}</p>
+                  </Link>
+                ) : (
+                  <p>{item.tarefa}</p>
+                )}
+                <i onClick={() => handleDelete(item.id)}>
                   {" "}
                   <MdDelete size={24} />
                 </i>
