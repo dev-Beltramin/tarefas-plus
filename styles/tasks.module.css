@@ -97,8 +97,12 @@
   padding-left: 6px;
   color: white;
 }
-.text p {
+.text a {
   width: 908px;
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
 .text i {

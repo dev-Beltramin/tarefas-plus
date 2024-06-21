@@ -2,8 +2,18 @@ import { GetServerSideProps } from "next";
 
 import styles from "../../../styles/profile.module.css";
 import Header1 from "../components/header/header1";
-import { doc, getDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where
+} from "firebase/firestore";
 import { db } from "../services/db";
+import { useSession } from "next-auth/react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 interface DetailProps {
   item: {
@@ -13,9 +23,45 @@ interface DetailProps {
     tarefa: string;
     user: string;
   };
+  coments: comentsProps[];
 }
 
-const Profile = ({ item }: DetailProps) => {
+interface comentsProps {
+  id: string;
+  user: string;
+  email: string;
+  created: Date;
+  coments: string;
+}
+
+const Profile = ({ item, coments }: DetailProps) => {
+  const [input, setInput] = useState("");
+  const [comentario, setComentario] = useState<comentsProps[]>(coments || []);
+
+  const { data: session } = useSession();
+
+  const handleComments = async (e: FormEvent) => {
+    e.preventDefault();
+
+    if (!session?.user?.email) return;
+
+    if (!session?.user?.name) return;
+
+    try {
+      await addDoc(collection(db, "coments"), {
+        coments: input,
+        created: new Date().toLocaleDateString(),
+        user: session?.user?.name,
+        email: session.user?.email,
+        taskId: item?.id
+      });
+
+      setInput("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className={styles.body}>
       <Header1 />
@@ -24,29 +70,38 @@ const Profile = ({ item }: DetailProps) => {
         <div className={styles.content}>
           <textarea>{item?.tarefa}</textarea>
 
-          <div className={styles.content_inputs}>
-            <label>Deixar comentario</label>
-            <textarea placeholder="Escreva seu comentario" />
+          <form onSubmit={handleComments}>
+            <div className={styles.content_inputs}>
+              <label>Deixar comentario</label>
+              <textarea
+                placeholder="Escreva seu comentario"
+                value={input}
+                onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                  setInput(e.target.value)
+                }
+              />
 
-            {item?.user && <button>Enviar comentario</button>}
-          </div>
+              {session?.user ? (
+                <button type="submit">Enviar comentario</button>
+              ) : (
+                <button disabled>Desconectado</button>
+              )}
+            </div>
+          </form>
         </div>
       </section>
 
       <section className={styles.coments}>
         <p>Todos os comentarios</p>
 
-        <div>
-          <div className={styles.coments_users}>
-            <p>Lucas silva</p>
-            Precisamos ajustar a interface do projeto.
-          </div>
-
-          <div className={styles.coments_users}>
-            <p>Lucas silva</p>
-            Precisamos ajustar a interface do projeto.
-          </div>
-        </div>
+        {comentario.map((doc) => (
+          <>
+            <div className={styles.coments_users} key={doc.id}>
+              <p>{doc.user}</p>
+              {doc.coments}
+            </div>
+          </>
+        ))}
       </section>
     </div>
   );
@@ -56,6 +111,22 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = params?.profile as string;
 
   const docRef = doc(db, "tarefas", id);
+
+  const q = query(collection(db, "coments"), where("taskId", "==", id));
+
+  const snapComents = await getDocs(q);
+
+  let coments: comentsProps[] = [];
+
+  snapComents.forEach((item) => {
+    coments.push({
+      id: item.id,
+      user: item.data().user,
+      email: item.data().email,
+      created: item.data().created,
+      coments: item.data().coments
+    });
+  });
 
   const snapshot = await getDoc(docRef);
 
@@ -68,21 +139,18 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     };
   }
 
-  const miliSeconds = snapshot.data()?.created?.seconds * 1000;
-
   const task = {
     id: snapshot.id,
-    created: new Date(miliSeconds).toLocaleDateString(),
+    created: new Date().toLocaleDateString(),
     tarefa: snapshot.data()?.tarefa,
     Public: snapshot.data()?.Public,
     user: snapshot.data()?.user
   };
 
-  console.log(task);
-
   return {
     props: {
-      item: task
+      item: task,
+      coments: coments
     }
   };
 };
