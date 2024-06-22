@@ -1,16 +1,27 @@
+import Head from "next/head";
+import { getDocs, collection } from "firebase/firestore";
+
+import { db } from "./services/db";
 import Image from "next/image";
 import HeaderOne from "./components/header/header1";
 import logo from "./components/images/logo-home.svg";
 
 import styles from "../../styles/Home.module.css";
-import Head from "next/head";
+import { GetServerSideProps } from "next";
 
-export default function Home() {
+type homeProps ={
+  propsPost : number
+  propsComents: number
+}
+
+
+
+export default function Home({propsComents,propsPost}:homeProps) {
   return (
     <>
-    <Head>
-      <title>Home</title>
-    </Head>
+      <Head>
+        <title>Home</title>
+      </Head>
       <HeaderOne />
 
       <section className={styles.container}>
@@ -19,11 +30,26 @@ export default function Home() {
           <p>Sistema feito para você organizar seus estudos e terefas</p>
 
           <div className={styles.button}>
-            <button>+ 7 Mil Post</button>
-            <button>+ 100 Mil comentarios</button>
+            <button>{propsPost} Posts</button>
+            <button>{propsComents} comentarios</button>
           </div>
         </div>
       </section>
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const postRef = collection(db, "tarefas");
+  const comentsRef = collection(db, "coments");
+
+  const postSnap = await getDocs(postRef);
+  const comentsSnap = await getDocs(comentsRef);
+
+  return {
+    props: {
+      propsComents: comentsSnap.size || 0,
+      propsPost: postSnap.size || 0
+    }
+  };
+};
