@@ -28,7 +28,7 @@ interface userProps {
 interface tasksProps {
   id: string;
   created: Date;
-  Public: boolean;
+  Public: boolean ;
   tarefa: string;
 }
 

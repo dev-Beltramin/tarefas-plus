@@ -3,15 +3,19 @@ import HeaderOne from "./components/header/header1";
 import logo from "./components/images/logo-home.svg";
 
 import styles from "../../styles/Home.module.css";
+import Head from "next/head";
 
 export default function Home() {
   return (
     <>
+    <Head>
+      <title>Home</title>
+    </Head>
       <HeaderOne />
 
       <section className={styles.container}>
         <div className={styles.content}>
-          <Image src={logo} width={579}  />
+          <Image src={logo} width={579} alt="logo do site" />
           <p>Sistema feito para você organizar seus estudos e terefas</p>
 
           <div className={styles.button}>

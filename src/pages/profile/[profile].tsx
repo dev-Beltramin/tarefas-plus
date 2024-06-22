@@ -5,6 +5,7 @@ import Header1 from "../components/header/header1";
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -14,6 +15,7 @@ import {
 import { db } from "../services/db";
 import { useSession } from "next-auth/react";
 import { ChangeEvent, FormEvent, useState } from "react";
+import Head from "next/head";
 
 interface DetailProps {
   item: {
@@ -48,7 +50,7 @@ const Profile = ({ item, coments }: DetailProps) => {
     if (!session?.user?.name) return;
 
     try {
-      await addDoc(collection(db, "coments"), {
+      const docRef = await addDoc(collection(db, "coments"), {
         coments: input,
         created: new Date().toLocaleDateString(),
         user: session?.user?.name,
@@ -56,54 +58,85 @@ const Profile = ({ item, coments }: DetailProps) => {
         taskId: item?.id
       });
 
+      const data = {
+        taskId: docRef.id,
+        user: session?.user.name,
+        coments: input
+      };
+      setComentario((item) => [...item, data]);
       setInput("");
     } catch (error) {
       console.log(error);
     }
   };
 
+  const handleDeleteComents = async (id: string) => {
+    try {
+      const docRef = doc(db, "coments", id);
+      const deleteComent = comentario.filter((item) => item.id !== id);
+      setComentario(deleteComent);
+      await deleteDoc(docRef);
+      alert("deletado com sucesso ");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className={styles.body}>
-      <Header1 />
+    <>
+      <Head>
+        <title>Detalhes</title>
+      </Head>
+      <div className={styles.body}>
+        <Header1 />
 
-      <section className={styles.container}>
-        <div className={styles.content}>
-          <textarea>{item?.tarefa}</textarea>
+        <section className={styles.container}>
+          <div className={styles.content}>
+            <textarea>{item?.tarefa}</textarea>
 
-          <form onSubmit={handleComments}>
-            <div className={styles.content_inputs}>
-              <label>Deixar comentario</label>
-              <textarea
-                placeholder="Escreva seu comentario"
-                value={input}
-                onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-                  setInput(e.target.value)
-                }
-              />
+            <form onSubmit={handleComments}>
+              <div className={styles.content_inputs}>
+                <label>Deixar comentario</label>
+                <textarea
+                  placeholder="Escreva seu comentario"
+                  value={input}
+                  onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                    setInput(e.target.value)
+                  }
+                />
 
-              {session?.user ? (
-                <button type="submit">Enviar comentario</button>
-              ) : (
-                <button disabled>Desconectado</button>
-              )}
-            </div>
-          </form>
-        </div>
-      </section>
+                {session?.user ? (
+                  <button type="submit">Enviar comentario</button>
+                ) : (
+                  <button disabled>Desconectado</button>
+                )}
+              </div>
+            </form>
+          </div>
+        </section>
 
-      <section className={styles.coments}>
-        <p>Todos os comentarios</p>
+        <section className={styles.coments}>
+          <p>Todos os comentarios</p>
 
-        {comentario.map((doc) => (
-          <>
+          {coments.length === 0 && <span>Sem comentarios</span>}
+          {comentario.map((doc) => (
             <div className={styles.coments_users} key={doc.id}>
               <p>{doc.user}</p>
-              {doc.coments}
+
+              <div className={styles.coments_delete}>
+                {doc.coments}
+
+                {session?.user?.email && (
+                  <button onClick={() => handleDeleteComents(doc.id)}>
+                    excluir
+                  </button>
+                )}
+              </div>
             </div>
-          </>
-        ))}
-      </section>
-    </div>
+          ))}
+        </section>
+      </div>
+    </>
   );
 };
 

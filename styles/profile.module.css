@@ -76,6 +76,7 @@
   margin: 0 auto;
 }
 
+
 .coments > p {
   font-size: 24px;
   font-weight: bold;
@@ -88,7 +89,6 @@
   width: 100%;
   padding: 12px;
   margin-bottom: 24px;
-
 }
 
 .coments_users p {
@@ -96,4 +96,19 @@
   width: 15%;
   padding: 2px 8px;
   margin-bottom: 8px;
+}
+
+.coments_delete {
+  display: flex;
+  justify-content: space-between;
+}
+
+.coments_delete button {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  padding: 4px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
 }
