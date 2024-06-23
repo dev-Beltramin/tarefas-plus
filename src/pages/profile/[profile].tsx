@@ -12,7 +12,7 @@ import {
   query,
   where
 } from "firebase/firestore";
-import  db  from "../services/db";
+import  db  from "../../../services/db";
 import { useSession } from "next-auth/react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import Head from "next/head";
