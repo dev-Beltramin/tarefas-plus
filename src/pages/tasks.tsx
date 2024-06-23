@@ -16,7 +16,7 @@ import { MdDelete } from "react-icons/md";
 import styles from "../../styles/tasks.module.css";
 import Header1 from "./components/header/header1";
 import { FiShare2 } from "react-icons/fi";
-import { db } from "./services/db";
+import  db from "./services/db";
 import Link from "next/link";
 
 interface userProps {

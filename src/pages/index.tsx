@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { getDocs, collection } from "firebase/firestore";
 
-import { db } from "./services/db";
+import  db  from "./services/db";
 import Image from "next/image";
 import HeaderOne from "./components/header/header1";
 import logo from "./components/images/logo-home.svg";

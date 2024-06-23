@@ -12,7 +12,7 @@ import {
   query,
   where
 } from "firebase/firestore";
-import { db } from "../services/db";
+import  db  from "../services/db";
 import { useSession } from "next-auth/react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import Head from "next/head";
@@ -57,13 +57,15 @@ const Profile = ({ item, coments }: DetailProps) => {
         email: session.user?.email,
         taskId: item?.id
       });
-
       const data = {
-        taskId: docRef.id,
-        user: session?.user.name,
-        coments: input
+        id: docRef.id,
+        coments: input,
+        created: new Date(),
+        user: session?.user?.name,
+        email: session.user?.email,
       };
       setComentario((item) => [...item, data]);
+
       setInput("");
     } catch (error) {
       console.log(error);
