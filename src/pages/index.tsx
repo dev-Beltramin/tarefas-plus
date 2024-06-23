@@ -7,16 +7,14 @@ import HeaderOne from "./components/header/header1";
 import logo from "./components/images/logo-home.svg";
 
 import styles from "../../styles/Home.module.css";
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 
-type homeProps ={
-  propsPost : number
-  propsComents: number
-}
+type homeProps = {
+  propsPost: number;
+  propsComents: number;
+};
 
-
-
-export default function Home({propsComents,propsPost}:homeProps) {
+export default function Home({ propsComents, propsPost }: homeProps) {
   return (
     <>
       <Head>
@@ -39,7 +37,7 @@ export default function Home({propsComents,propsPost}:homeProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const postRef = collection(db, "tarefas");
   const comentsRef = collection(db, "coments");
 
@@ -50,6 +48,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     props: {
       propsComents: comentsSnap.size || 0,
       propsPost: postSnap.size || 0
-    }
+    },
+    revalidate: 60
   };
 };
